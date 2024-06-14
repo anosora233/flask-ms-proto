@@ -1,0 +1,47 @@
+html {
+  font: 1em Tahoma, Helvetica, sans-serif;
+}
+
+body {
+  width: 70em;
+  margin: 1em auto;
+}
+
+h2 {
+  border-bottom: 2px solid;
+}
+
+td,
+th {
+  text-align: left;
+}
+
+thead {
+  background-color: #999;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+table {
+  width: 100%;
+  margin: 1em auto;
+  border: 2px solid;
+  table-layout: fixed;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+li ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  list-style-type: inherit;
+}
+
+.caption {
+  text-align: center;
+  border-top: 2px solid;
+}

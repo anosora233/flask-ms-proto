@@ -1,0 +1,7 @@
+exclude = ['*_pb2.py']
+
+[lint]
+select = ["E", "F", "I", "W", "C", "B", "UP"]
+
+[format]
+quote-style = "single"

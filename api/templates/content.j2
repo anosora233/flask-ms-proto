@@ -1,0 +1,127 @@
+{% extends "base.j2" %}
+
+{% block header %}
+<h1>MahjongSoul Protobuf</h1>
+<p>
+    This project serves as a demonstration for Flask exercises. It is a web application developed to analyze the
+    protobuf file of MahjongSoul, offering a structured display of messages, services, and enums for more in-depth
+    analytical purposes.
+</p>
+<nav>
+    <ul>
+        <li><a href="#enums">Enums</a>
+            <ul>
+                {% for enum in proto.enums %}
+                <li><a href="#{{enum.name}}">{{enum.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><a href="#services">Services</a>
+            <ul>
+                {% for service in proto.services %}
+                <li><a href="#{{service.name}}">{{service.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><a href="#messages">Messages</a>
+            <ul>
+                {% for message in proto.messages %}
+                <li><a href="#{{message.name}}">{{message.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% if proto %}
+<div class="grid" id="enums">
+    <h2>Enums</h2>
+    {% for enum in proto.enums %}
+    <table id="{{enum.name}}">
+        <caption>{{enum.name}}</caption>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in enum.values %}
+            <tr>
+                <th scope="row">{{value.name}}</th>
+                <td>{{value.number}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+
+<div class="grid" id="services">
+    <h2>Services</h2>
+    {% for service in proto.services %}
+    <table id="{{service.name}}">
+        <caption>{{service.name}}</caption>
+        <thead>
+            <tr>
+                <th scope="col">Method</th>
+                <th scope="col">RequestType</th>
+                <th scope="col">ResponseType</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for method in service.methods %}
+            <tr>
+                <th scope="row">{{method.name}}</th>
+                <td><a href="#{{method.input}}">{{method.input}}</a></td>
+                <td><a href="#{{method.output}}">{{method.output}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+
+<div class="grid" id="messages">
+    <h2>Messages</h2>
+    {% for message in proto.messages %}
+    <table id="{{message.name}}">
+        <caption>{{message.name}}</caption>
+        <thead>
+            <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Id</th>
+                <th scope="col">Type</th>
+                <th scope="col">Rule</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for field in message.fields %}
+            <tr>
+                <th scope="row">{{field.name}}</th>
+                <td>{{field.id}}</td>
+                <td>{{field.type}}</td>
+                <td>{{field.rule}}</td>
+            </tr>
+            {% endfor %}
+            {% for s_message in message.nested %}
+            <tr>
+                <td colspan="4" class="caption">{{s_message.name}}</th>
+            </tr>
+            {% for field in s_message.fields %}
+            <tr>
+                <th scope="row">{{field.name}}</th>
+                <td>{{field.id}}</td>
+                <td>{{field.type}}</td>
+                <td>{{field.rule}}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
